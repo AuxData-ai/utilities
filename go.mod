@@ -1,4 +1,4 @@
-module auxdata-ai/utilities
+module github.com/auxdata-ai/utilities
 
 go 1.23.1
 
