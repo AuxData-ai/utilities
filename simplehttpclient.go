@@ -12,11 +12,21 @@ import (
 	"time"
 )
 
+type HTTP_METHOD string
+
+const (
+	HTTP_METHOD_GET    HTTP_METHOD = "GET"
+	HTTP_METHOD_PUT    HTTP_METHOD = "PUT"
+	HTTP_METHOD_POST   HTTP_METHOD = "POST"
+	HTTP_METHOD_DELETE HTTP_METHOD = "DELETE"
+	HTTP_METHOD_PATCH  HTTP_METHOD = "PATCH"
+)
+
 type SimpleHttpClient struct {
 	Headers     map[string]string
 	Body        string
 	Url         string
-	Method      string
+	Method      HTTP_METHOD
 	ContentType string
 }
 
@@ -54,7 +64,7 @@ func (client SimpleHttpClient) Execute() (string, error) {
 	httpClient := &http.Client{}
 
 	// Create a new HTTP Request
-	req, err := http.NewRequest(client.Method, client.Url, nil)
+	req, err := http.NewRequest(string(client.Method), client.Url, nil)
 
 	if err != nil {
 		log.Println(err)
@@ -98,7 +108,7 @@ func (client SimpleHttpClient) ExecuteStream() (string, error) {
 	httpClient := &http.Client{}
 
 	// Create a new HTTP Request
-	req, err := http.NewRequest(client.Method, client.Url, nil)
+	req, err := http.NewRequest(string(client.Method), client.Url, nil)
 
 	if err != nil {
 		log.Println(err)
